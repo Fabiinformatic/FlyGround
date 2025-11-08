@@ -3,142 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FlyGround — GSX-like</title>
-  <link rel="stylesheet" href="style.css">
+  <title>FlyGround — Servicios</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo">🟦</div>
-        <div>
-          <h1>FlyGround</h1>
-          <small>Servicios en tierra — Prototype</small>
-        </div>
-      </div>
-
-      <div class="meta">
-        <label>Callsign
-          <input id="callsign" placeholder="IBE1234">
-        </label>
-        <label>Puesto / Gate
-          <input id="gate" placeholder="A12">
-        </label>
-      </div>
+  <div id="container" role="application" aria-label="FlyGround menu">
+    <header class="hdr">
+      <div class="title">GSX MAIN MENU</div>
+      <div class="subtitle">Activate Services at Gate <span id="gateLabel">5</span></div>
     </header>
 
-    <main>
-      <section class="left">
-        <div class="service-row">
-          <div class="service-card" data-service="pushback">
-            <div class="svc-head"><span class="icon">🔄</span><h3>Pushback</h3></div>
-            <p class="desc">Mueve el tug y suelta el avión en la calle de rodaje.</p>
-            <div class="controls">
-              <label>Heading
-                <input id="pushbackHeading" type="number" value="90" min="0" max="359">
-              </label>
-              <label>Speed
-                <input id="pushbackSpeed" type="number" value="1" min="1" step="0.1">
-              </label>
-            </div>
-            <div class="actions">
-              <button class="btn primary" data-action="start" data-service="pushback">Iniciar</button>
-              <button class="btn" data-action="cancel" data-service="pushback">Cancelar</button>
-            </div>
-            <div class="progress"><div class="bar" id="progress-pushback"></div></div>
-          </div>
+    <nav class="menu" aria-label="Lista de servicios" id="menuList">
+      <!-- Items generados por JS -->
+    </nav>
 
-          <div class="service-card" data-service="catering">
-            <div class="svc-head"><span class="icon">🍽️</span><h3>Catering</h3></div>
-            <p class="desc">Suministro de comida y bebidas.</p>
-            <div class="controls">
-              <label>Tiempo (s)
-                <input id="cateringTime" type="number" value="25" min="5">
-              </label>
-            </div>
-            <div class="actions">
-              <button class="btn primary" data-action="start" data-service="catering">Llamar</button>
-              <button class="btn" data-action="cancel" data-service="catering">Cancelar</button>
-            </div>
-            <div class="progress"><div class="bar" id="progress-catering"></div></div>
-          </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-card" data-service="fuel">
-            <div class="svc-head"><span class="icon">⛽</span><h3>Repostaje</h3></div>
-            <p class="desc">Repostar combustible al avión.</p>
-            <div class="controls">
-              <label>Litros (aprox)
-                <input id="fuelAmount" type="number" value="2000" min="100">
-              </label>
-              <label>Tiempo (s)
-                <input id="fuelTime" type="number" value="40" min="5">
-              </label>
-            </div>
-            <div class="actions">
-              <button class="btn primary" data-action="start" data-service="fuel">Iniciar</button>
-              <button class="btn" data-action="cancel" data-service="fuel">Cancelar</button>
-            </div>
-            <div class="progress"><div class="bar" id="progress-fuel"></div></div>
-          </div>
-
-          <div class="service-card" data-service="passengers">
-            <div class="svc-head"><span class="icon">🧳</span><h3>Embarque/Desembarque</h3></div>
-            <p class="desc">Gestiona pasajeros y ramp agent.</p>
-            <div class="controls">
-              <label>Tiempo (s)
-                <input id="paxTime" type="number" value="30" min="5">
-              </label>
-            </div>
-            <div class="actions">
-              <button class="btn primary" data-action="start" data-service="passengers">Iniciar</button>
-              <button class="btn" data-action="cancel" data-service="passengers">Cancelar</button>
-            </div>
-            <div class="progress"><div class="bar" id="progress-passengers"></div></div>
-          </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-card" data-service="cleaning">
-            <div class="svc-head"><span class="icon">🧹</span><h3>Limpieza</h3></div>
-            <p class="desc">Limpieza rápida del interior.</p>
-            <div class="controls">
-              <label>Tiempo (s)
-                <input id="cleanTime" type="number" value="20" min="5">
-              </label>
-            </div>
-            <div class="actions">
-              <button class="btn primary" data-action="start" data-service="cleaning">Llamar</button>
-              <button class="btn" data-action="cancel" data-service="cleaning">Cancelar</button>
-            </div>
-            <div class="progress"><div class="bar" id="progress-cleaning"></div></div>
-          </div>
-
-          <div class="service-card info">
-            <div class="svc-head"><span class="icon">ℹ️</span><h3>Estado</h3></div>
-            <div class="desc small">
-              <div id="log" class="log">Logs de FlyGround...</div>
-            </div>
-            <div class="actions">
-              <button class="btn" id="clearLog">Limpiar log</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <aside class="right">
-        <h3>Cola de servicios</h3>
-        <ul id="queue"></ul>
-        <hr>
-        <h3>Opciones</h3>
-        <label><input id="autoClose" type="checkbox"> Cerrar panel al completar</label>
-        <p class="note">Nota: algunos aviones payware pueden ignorar eventos de pushback.</p>
-      </aside>
-    </main>
-
-    <footer>
-      <small>FlyGround — Prototype • 2025 — Fabiii</small>
+    <footer class="ftr">
+      <div class="small">FlyGround • Prototype</div>
+      <div class="status" id="status">Listo</div>
     </footer>
   </div>
 
