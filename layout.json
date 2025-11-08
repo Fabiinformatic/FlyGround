@@ -1,19 +1,13 @@
 {
-  "content": [
+  "name": "FlyGround",
+  "panels": [
     {
+      "id": "flyground.panel",
+      "type": "WEBPAGE",
+      "name": "FlyGround",
       "path": "html_ui/FlyGround/index.html",
-      "size": 1024,
-      "date": 132456789000000000
-    },
-    {
-      "path": "html_ui/FlyGround/style.css",
-      "size": 512,
-      "date": 132456789000000000
-    },
-    {
-      "path": "html_ui/FlyGround/script.js",
-      "size": 768,
-      "date": 132456789000000000
+      "width": 1100,
+      "height": 700
     }
   ]
 }
