@@ -1,25 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
     const status = document.getElementById("status");
     const btnPushback = document.getElementById("btnPushback");
-    const btnChecklist = document.getElementById("btnChecklist");
-    const btnConfig = document.getElementById("btnConfig");
 
-    btnPushback.addEventListener("click", () => {
-        status.textContent = "Iniciando pushback...";
-        console.log("FlyGround → Pushback iniciado");
-
-        // Aquí se conectará con la API de MSFS en el futuro
-        // Ejemplo (cuando se integre con SimConnect o Coherent.call):
-        // Coherent.call("FLYGROUND.PUSHBACK_START");
-    });
-
-    btnChecklist.addEventListener("click", () => {
-        status.textContent = "Abriendo checklist...";
-        console.log("FlyGround → Checklist abierto");
-    });
-
-    btnConfig.addEventListener("click", () => {
-        status.textContent = "Abriendo configuración...";
-        console.log("FlyGround → Configuración abierta");
+    btnPushback.addEventListener("click", async () => {
+        status.textContent = "Solicitando pushback...";
+        try {
+            const payload = { heading: 90, speed: 1 }; // ejemplo: heading en grados
+            const res = await fetch("http://localhost:5000/pushback", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error("No ok: " + res.status);
+            const json = await res.json();
+            if (json.ok) {
+                status.textContent = "Pushback solicitado correctamente.";
+            } else {
+                status.textContent = "Pushback: respuesta inesperada";
+            }
+        } catch (err) {
+            console.error(err);
+            status.textContent = "Error al solicitar pushback. ¿Arrancaste FlyGroundBridge?";
+        }
     });
 });
