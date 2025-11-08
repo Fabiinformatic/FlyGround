@@ -2,9 +2,9 @@
   "dependencies": [],
   "content_type": "UI",
   "title": "FlyGround",
-  "manufacturer": "",
+  "manufacturer": "Fabiii",
   "creator": "Fabiii",
-  "package_version": "0.1.0",
+  "package_version": "0.2.0",
   "minimum_game_version": "1.35.0",
   "release_notes": {
     "neutral": {
